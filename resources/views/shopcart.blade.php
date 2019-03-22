@@ -1,6 +1,7 @@
 @extends('public')
 @section('title', '购物车')
 @section('content')
+    @csrf
 <body id="loadingPicBlock" class="g-acc-bg">
     <input name="hidUserID" type="hidden" id="hidUserID" value="-1" />
     <div>
@@ -13,7 +14,7 @@
         <div class="g-Cart-list">
             <ul id="cartBody">
                 @foreach($arr as $v)
-                <li>
+                <li cart_id="{{$v->cart_id}}">
                     <s class="xuan current"></s>
                     <a class="fl u-Cart-img" href="/v44/product/12501977.do">
                         <img src="/goodsimg/{{$v->goods_img}}" border="0" alt="">
@@ -21,14 +22,14 @@
                     <div class="u-Cart-r">
                         <a href="/v44/product/12501977.do" class="gray6">{{$v->goods_name}}</a>
                         <span class="gray9">
-                            <em>价格：￥<a  class="self_price" value="{{$v->self_price}}">{{$v->self_price}}</a></em>
+                            <em>价格：￥<a  class="self_price" self_price="{{$v->self_price}}">{{$v->self_price}}</a></em>
                         </span>
                         <div class="num-opt">
                             <em class="num-mius dis min"><i></i></em>
-                            <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_number}}" codeid="12501977">
+                            <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_number}}"  codeid="12501977">
                             <em class="num-add add"><i></i></em>
                         </div>
-                        <a href="javascript:;" name="delLink" cid="12501977" isover="0" class="z-del"><s></s></a>
+                        <a href="javascript:;" name="delLink" cid="12501977" isover="0"cart_id="{{$v->cart_id}}" class="z-del delete"><s ></s></a>
                     </div>    
                 </li>
                 @endforeach
@@ -45,7 +46,7 @@
                 </dt>
                 <dd>
 
-                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove">删除</a>
+                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove alldel">删除</a>
                     <a href="javascript:;" id="a_payment" class="orangeBtn w_account">去结算</a>
                 </dd>
             </dl>
@@ -161,6 +162,47 @@
 
     <script type="text/javascript">
     $(function () {
+        //劈山
+        $('.alldel').click(function(){
+            var _li=$("s[class='xuan current']").parent('li');
+            var goods_id='';
+            _li.each(function (index) {
+                goods_id+=$(this).attr('cart_id')+',';
+            })
+            $.post(
+                "shopcartDels",
+                {cart_id:goods_id,_token:$('input[name=_token]').val()},
+                function(res){
+                    if(res==1){
+                        layer.msg('删除成功',{icon:1});
+                        history.go(0);
+                        //location.href="shopcart";
+                    }else {
+                        layer.msg('删除失败',{icon:2});
+                        //location.href="";
+                    }
+                }
+            )
+        })
+        //删除
+        $(".delete").click(function(){
+            var _this=$(this);
+            var cart_id=_this.attr('cart_id');
+            $.post(
+                "shopcartDel",
+                {cart_id:cart_id,_token:$('input[name=_token]').val()},
+                function(res){
+                    if(res==1){
+                        layer.msg('删除成功',{icon:1});
+                        history.go(0);
+                        //location.href="shopcart";
+                    }else {
+                        layer.msg('删除失败',{icon:2});
+                        //location.href="";
+                    }
+                }
+            )
+        })
         $(".add").click(function () {
             var t = $(this).prev();
             t.val(parseInt(t.val()) + 1);
@@ -179,6 +221,7 @@
     // 全选        
     $(".quanxuan").click(function () {
         if($(this).hasClass('current')){
+
             $(this).removeClass('current');
 
              $(".g-Cart-list .xuan").each(function () {
@@ -224,17 +267,16 @@
   // 已选中的总额
     function GetCount() {
         var conts = 0;
-        var aa = 0; 
-        $(".g-Cart-list .xuan").each(function () {
-            if ($(this).hasClass("current")) {
-                for (var i = 0; i < $(this).length; i++) {
-                    conts += parseInt($(this).parents('li').find('input.text_box').val())*$('.self_price').val();
-                    // aa += 1;
-                }
+        var aa = 0;
+        $(".xuan").each(function () {
+            if($(this).attr('class')=='xuan current'){
+                var self_price=$(this).siblings("div[class='u-Cart-r']").find("a[class='self_price']").attr('self_price');
+                var buy_number=$(this).siblings("div[class='u-Cart-r']").find("input[class='text_box']").val()
+                conts+=parseInt(self_price)*parseInt(buy_number);
             }
         });
-        
-         $(".total").html('<span>￥</span>'+(conts).toFixed(2));
+
+        $(".total").html('<span>￥</span>'+(conts).toFixed(2));
     }
     GetCount();
 </script>

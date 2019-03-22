@@ -13,10 +13,12 @@
 
 route::any('/','IndexController@index');
 
-route::any('allshops','AllshopController@allshops');
+route::any('allshops/{cate_id?}','AllshopController@allshops');
 route::any('allshopsDo','AllshopController@allshopsDo');
 route::any('shopcart','ShopcartController@shopcart')->middleware('log');
 route::any('shopcartDo','ShopcartController@shopcartDo')->middleware('log');
+route::any('shopcartDel','ShopcartController@shopcartDel')->middleware('log');
+route::any('shopcartDels','ShopcartController@shopcartDels')->middleware('log');
 route::any('userpage','UserPageController@userpage');
 route::any('shopcontent/{id}','AllshopController@shopcontent');
 route::any('share','ShareController@share');

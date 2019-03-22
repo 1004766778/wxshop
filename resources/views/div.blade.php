@@ -1,5 +1,5 @@
 
-    <div id="pullrefresh" class="good-list-box  mui-content mui-scroll-wrapper">
+    <div class="good-list-box  mui-content mui-scroll-wrapper">
         <div class="goodList mui-scroll">
             <ul id="ulGoodsList" class="mui-table-view mui-table-view-chevron">
                 @foreach($arr1 as $v)
@@ -23,7 +23,7 @@
                                         <li class="P-bar03"><em>{{$v->goods_num}}</em>剩余</li>
                                     </ul>
                                 </div>
-                                <a codeid="12785750" class="" canbuy="646"><s></s></a>
+                                <a codeid="12785750" goods_id="{{$v->goods_id}}" class="goodscar" canbuy="646"><s></s></a>
                             </div>
                         </div>
                     </li>

@@ -67,10 +67,10 @@
 <div class="layui-layer-move"></div>
 @endsection
 @section('my-js')
-            <script>
-                $(function(){
-                    $('#btna').click(function(){
-                        var u_name=$('#userMobile').val();
+
+                    <script>
+                        $(function(){$('#btna').click(function(){
+                            var u_name = $('#userMobile').val();
                         $.post(
                             "{{url('sendcode')}}",
                             {u_name:u_name,_token:$('input[name=_token]').val()},

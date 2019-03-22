@@ -41,10 +41,9 @@ class ShopcartController extends Controller
             //print_r($res);
 
         }else{
+
             $data['buy_number']=1;
             $res=Cart::insert($data);
-            print_r($res);
-
         }
         if($res){
             echo 1;
@@ -52,6 +51,28 @@ class ShopcartController extends Controller
             echo 2;
         }
 
+    }
+    //购物车删除
+    public function shopcartDel(Request $request)
+    {
+        $cart_id=$request->cart_id;
+        $res=Cart::where('cart_id',$cart_id)->delete();
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+    //购物车删除
+    public function shopcartDels(Request $request)
+    {
+        $cart_id=explode(',',rtrim($request->cart_id,','));
+        $res=Cart::whereIn('cart_id',$cart_id)->delete();
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
     }
 
 }

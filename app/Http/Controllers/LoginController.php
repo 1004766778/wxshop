@@ -66,33 +66,24 @@ class LoginController extends Controller
     //传手机号
     public function sendcode(Request $request){
         $mobile=$request->u_name;
-        $this->sendMobile($mobile);
+        $code=rand(1000,9999);
+        session(['mobilecode'=>$code]);
+        $this->sendMobile($code,$mobile);
     }
-    //huo取验证码
-    public static function createcode($len)
-    {
-        $code = 6666;
-//        for($i=1;$i<=$len;$i++){
-//            $code .=mt_rand(0,9);
-//        }
 
-        return 6666;
-    }
 
     /*
      * @content 发送手机验证码
      * @params  $mobile  要发送的手机号
      *
      * */
-    private function sendMobile($mobile)
+    private function sendMobile($code,$mobile)
     {
         $host = env("MOBILE_HOST");
         $path = env("MOBILE_PATH");
         $method = "POST";
         $appcode = env("MOBILE_APPCODE");
         $headers = array();
-        $code = $this->createcode(4);
-        session(['mobilecode'=>$code]);
         array_push($headers, "Authorization:APPCODE " . $appcode);
         $querys = "content=【创信】你的验证码是：".$code."，3分钟内有效！&mobile=".$mobile;
         $bodys = "";
@@ -110,6 +101,6 @@ class LoginController extends Controller
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         }
-        return curl_exec($curl);
+        var_dump(curl_exec($curl));
     }
 }
