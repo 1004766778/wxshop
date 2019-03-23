@@ -208,7 +208,11 @@
                 data:{'user_tel':tel,'code':code,'user_pwd':pwd,'_token': $('input[name=_token]').val()},
                 success: function(data){
                     if(data==1){
-                        layer.msg('注册成功');
+                        layer.msg('注册成功',{icon:1});
+                        location.href="shopcart";
+                    }else{
+                        layer.msg('注册失败',{icon:2});
+                        
                     }
                 }
             })

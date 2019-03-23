@@ -47,7 +47,7 @@
                 <dd>
 
                     <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove alldel">删除</a>
-                    <a href="javascript:;" id="a_payment" class="orangeBtn w_account">去结算</a>
+                    <a href="{{url('payment')}}" id="a_payment" class="orangeBtn w_account">去结算</a>
                 </dd>
             </dl>
         </div>

@@ -1,27 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <title>我的潮购</title>
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-
-    <link href="css/comm.css" rel="stylesheet" type="text/css" />
-
-    <link href="{{url('css/member.css')}}" rel="stylesheet" type="text/css" />
-    <script src="{{url('js/jquery190_1.js')}}" language="javascript" type="text/javascript"></script>
-</head>
+﻿@extends('public')
+@section('title', '项目	')
+@section('content')
+    @csrf
 <body class="g-acc-bg">
-    
-    <div class="welcome" style="display: none">
+    @if(empty($id))
+
+    <div class="welcome" >
         <p>Hi，等你好久了！</p>
         <a href="" class="orange">登录</a>
         <a href="" class="orange">注册</a>
     </div>
-
-    <div class="welcome">
+@else
+    <div class="welcome login">
         <i class="set"></i>
         <div class="login-img clearfix">
             <ul>
@@ -50,6 +40,7 @@
         </div>
 
     </div>
+    @endif
     <!--获得的商品-->
     
     <!--导航菜单-->
@@ -73,8 +64,12 @@
         <li class="f_personal"><a href="{{url('userpage')}}"  class="hover"><i></i>我的潮购</a></li>
     </ul>
 </div>
-
+    @endsection
+    @section('my-js')
     <script>
+    $(function(){
+
+
         function goClick(obj, href) {
             $(obj).empty();
             location.href = href;
@@ -82,6 +77,7 @@
         if (navigator.userAgent.toLowerCase().match(/MicroMessenger/i) != "micromessenger") {
             $(".m-block-header").show();
         }
+
+     })
     </script>
-</body>
-</html>
+@endsection

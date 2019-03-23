@@ -19,9 +19,12 @@ route::any('shopcart','ShopcartController@shopcart')->middleware('log');
 route::any('shopcartDo','ShopcartController@shopcartDo')->middleware('log');
 route::any('shopcartDel','ShopcartController@shopcartDel')->middleware('log');
 route::any('shopcartDels','ShopcartController@shopcartDels')->middleware('log');
+route::any('payment','ShopcartController@payment')->middleware('log');
+
 route::any('userpage','UserPageController@userpage');
 route::any('shopcontent/{id}','AllshopController@shopcontent');
 route::any('share','ShareController@share');
+
 route::any('login','LoginController@login');
 route::any('loginDo','LoginController@loginDo');
 route::any('register','LoginController@register');

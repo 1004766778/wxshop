@@ -74,5 +74,9 @@ class ShopcartController extends Controller
             echo 2;
         }
     }
-
+    //结算
+    public function payment()
+    {
+       return view('payment');
+    }
 }

@@ -11,8 +11,8 @@ class UserPageController extends Controller
     //我的潮购
     public function userpage()
     {
-
-        return view('userpage');
+        $id=session('user_id');
+        return view('userpage',['id'=>$id]);
     }
 
 }
