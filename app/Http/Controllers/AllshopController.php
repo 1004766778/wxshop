@@ -19,16 +19,35 @@ class AllshopController extends Controller
     //点击商品分类
     public function allshopsDo(Request $request)
     {
-        $cate_id=$request->cate_id;
+        $cate_id=$request->input('cate_id');
+//        echo $cate_id;die;
+        $type=$request->type;
+//        echo $cate_id;
         if(empty($cate_id)){
-            $res1=Goods::get();
+            if(empty($type)){
+                $goodsInfo=Goods::get();
+            }else{
 
+                if($type==1){
+                    $goodsInfo=Goods::orderBy('goods_num','desc')
+                        -> take(10)->get();
+                }
+                if($type==2){
+                    $goodsInfo=Goods::orderBy('create_time','asc')
+                        -> take(10)->get();
+                }
+                if($type==3){
+                    $goodsInfo=Goods::orderBy('self_price',$type)
+                        -> take(10)->get();
+                }
+            }
         }else{
-            $res1=Goods::where('cate_id',$cate_id)->get();
+            if(empty($type)){
+                $goodsInfo=$this->getcate1($cate_id);
+            }
+
         }
-
-
-        return view('div',['arr1'=>$res1]);
+        return view('div',['goodsInfo'=>$goodsInfo]);
     }
 
 

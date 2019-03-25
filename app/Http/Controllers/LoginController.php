@@ -55,7 +55,7 @@ class LoginController extends Controller
         //dd($res);
         if($res){
             echo 1;
-            session(['user_name'=>$data['user_tel'],'user_id'=>$res1['user_id']]);
+            session(['user_name'=>$data['user_tel'],'user_id'=>$resw1['user_id']]);
         }else{
             echo 2;
         }

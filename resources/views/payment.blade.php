@@ -21,56 +21,29 @@
     <a href="/" class="m-index-icon"><i class="m-public-icon"></i></a>
 </div>
 <div>
-        <div class="g-pay-lst">
-            <ul>
+    <div class="g-pay-lst">
+        <ul>
+            @foreach($goodsInfo as $v)
                 <li>
                     <a href="">
-                        <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
-                        </span>
+                <span>
+                    <img src="/goodsimg/{{$v->goods_img}}" border="0" alt="">
+                </span>
                         <dl>
                             <dt>
-                                
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
+                                {{$v->buy_number}}(第449560潮){{$v->goods_name}}
                             </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
+                            <dd><em class="price">1</em>人次/<em>￥{{$v->self_price}}</em></dd>
                         </dl>
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
-                        </span>
-                        <dl>
-                            <dt>
-                                
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
-                            </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
-                        </dl>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span>
-                            <img src="https://img.1yyg.net/GoodsPic/pic-200-200/20160908092215288.jpg" border="0" alt="">
-                        </span>
-                        <dl>
-                            <dt>
-                                
-                                    (第449560潮)苹果（Apple）iPhone 7 Plus 128G版 4G手机
-                            </dt>
-                            <dd><em class="price">1</em>人次/<em>￥1.00</em></dd>
-                        </dl>
-                    </a>
-                </li>
-            </ul>
-            <div id="divMore">
-                
-            </div>
-            <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>1.00</em></p>
+            @endforeach
+        </ul>
+        <div id="divMore">
+
         </div>
+        <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>{{$price}}</em></p>
+    </div>
 
         <div class="other_pay marginB">
             
@@ -144,8 +117,8 @@
 			total +=parseInt($('.g-pay-lst li').eq(i).find('dd em.price').text());
 
 		}
-		$('.gray9 .orange').html('<i>￥</i>'+total.toFixed(2));
-		$('.wzf .orange').html('<span class="colorbbb">需要支付&nbsp;</span><b>￥</b>'+total.toFixed(2));
+		//$('.gray9 .orange').html('<i>￥</i>'+total.toFixed(2));
+		//$('.wzf .orange').html('<span class="colorbbb">需要支付&nbsp;</span><b>￥</b>'+total.toFixed(2));
 
 		// 判断选择余额支付还是潮购值支付
 		var chaomoney =parseInt($('.other_pay .chaomoney span.gray9 em').text())/100;

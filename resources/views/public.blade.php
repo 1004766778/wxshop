@@ -18,15 +18,16 @@
     <link href="{{url('css/cartlist.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{url('css/swiper.min.css')}}">    <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" href="{{url('css/writeaddr.css')}}">
+    <link rel="stylesheet" href="{{url('dist/css/LArea.css')}}">
     <link href="{{url('css/member.css')}}" rel="stylesheet" type="text/css" />
+
 </head>
 <body fnav="1" class="g-acc-bg">
 @yield('content')
 
 </body>
 </html>
-
 <script src="{{url('js/jquery-1.8.3.min.js')}}"></script>
 <script src="http://cdn.bootcss.com/flexslider/2.6.2/jquery.flexslider.min.js"></script>
 <script src="{{url('layui/layui.js')}}"></script>

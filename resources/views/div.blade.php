@@ -2,7 +2,7 @@
     <div class="good-list-box  mui-content mui-scroll-wrapper">
         <div class="goodList mui-scroll">
             <ul id="ulGoodsList" class="mui-table-view mui-table-view-chevron">
-                @foreach($arr1 as $v)
+                @foreach($goodsInfo as $v)
                     <li>
                         <span class="gList_l fl">
                             <a href="{{url('shopcontent')}}/{{$v->goods_id}}"><img class="lazy"  data-original="/goodsimg/{{$v->goods_img}}" src="/goodsimg/{{$v->goods_img}}"></a>

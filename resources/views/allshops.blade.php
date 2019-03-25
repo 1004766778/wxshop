@@ -61,10 +61,10 @@
                     <div class="good-menu thin-bor-bottom">
                         <ul class="good-menu-list" id="ulOrderBy">
                             <li orderflag="10" class="current"><a href="javascript:;">即将揭晓</a></li>
-                            <li orderflag="20"><a href="javascript:;">人气</a></li>
-                            <li orderflag="50"><a href="javascript:;">最新</a></li>
-                            <li orderflag="30"><a href="javascript:;">价值</a><span class="i-wrap"><i class="up"></i><i class="down"></i></span></li>
-                            <!--价值(由高到低30,由低到高31)-->
+                            <li orderflag="20"><a href="javascript:;" class="di" type=1>人气</a></li>
+                            <li orderflag="50"><a href="javascript:;" class="di" type=2>最新</a></li>
+                            <li orderflag="30"class="di" type=3><a href="javascript:;"  >价值</a>
+                                <!--价值(由高到低30,由低到高31)-->
                         </ul>
                     </div>
 
@@ -124,6 +124,22 @@
         <script>
             $(function(){
                 //点击购物策划
+                //点击库存
+                $(document).on('click','.di',function(){
+                    var _this=$(this);
+                    var type=_this.attr('type');
+                    console.log(type);
+
+                    $.post(
+                        "allshopsDo",
+                        {type:type,_token:$("[name='_token']").val()},
+                        function(res){
+                            $('.good-list-inner').empty();
+                            $('.good-list-inner').html(res);
+                        }
+                    )
+                })
+
                 // $('.goodscar').click(function(){
                     $(document).on('click','.goodscar',function () {
                     var _this=$(this);

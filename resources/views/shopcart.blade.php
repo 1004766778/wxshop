@@ -14,7 +14,7 @@
         <div class="g-Cart-list">
             <ul id="cartBody">
                 @foreach($arr as $v)
-                <li cart_id="{{$v->cart_id}}">
+                <li cart_id="{{$v->cart_id}}" goods_id="{{$v->goods_id}}">
                     <s class="xuan current"></s>
                     <a class="fl u-Cart-img" href="/v44/product/12501977.do">
                         <img src="/goodsimg/{{$v->goods_img}}" border="0" alt="">
@@ -47,7 +47,7 @@
                 <dd>
 
                     <a href="javascript:;" id="a_payment" class="orangeBtn w_account remove alldel">删除</a>
-                    <a href="{{url('payment')}}" id="a_payment" class="orangeBtn w_account">去结算</a>
+                    <a href="javascript:;" id="payment" class="orangeBtn w_account">去结算</a>
                 </dd>
             </dl>
         </div>
@@ -244,6 +244,29 @@
         
         
     });
+    //点击去结算
+    $("#payment").click(function(){
+        var goods_id='';
+        $(".g-Cart-list .xuan").each(function(){
+//                console.log($(this));
+            if($(this).attr('class')=='xuan current'){
+                for(var i=0;i<$(this).length;i++){
+                    goods_id+=$(this).parent('li').attr('goods_id')+',';
+                }
+            }
+        })
+
+        goods_id=goods_id.substr(0,goods_id.length-1);
+           console.log(goods_id);
+        $.post(
+            'paymentdo',
+            {goods_id:goods_id,_token:$("[name='_token']").val()},
+            function(res){
+                location.href="payment"
+            }
+        )
+    })
+
     // 单选
     $(".g-Cart-list .xuan").click(function () {
         if($(this).hasClass('current')){

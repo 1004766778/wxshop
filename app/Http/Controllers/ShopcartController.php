@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Goods;
 use App\Model\Category;
 use App\Model\Cart;
+use App\Model\Address;
 class ShopcartController extends Controller
 {
 
@@ -77,6 +78,34 @@ class ShopcartController extends Controller
     //结算
     public function payment()
     {
-       return view('payment');
+        $goods_id=session('goods_id');
+        //echo $goods_id;die;
+        $user_id=session('user_id');
+        $goods_id=explode(',',$goods_id);
+        //print_r($goods_id);die;
+//        $where=[
+//            'cart.goods_id'=>['in',$goods_id]
+//        ];
+//        print_r($where);die;
+        $goodsInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')->whereIn('cart.goods_id',$goods_id)->get();
+        //print_r($goodsInfo);die;
+        $price=0;
+        foreach($goodsInfo as $v){
+            $price+=$v['buy_number']*$v['self_price'];
+        }
+        $addWhere=[
+            'user_id'=>$user_id,
+            'is_default'=>1
+        ];
+        $addressInfo=Address::where($addWhere)->first();
+
+        return view('payment',['goodsInfo'=>$goodsInfo,'price'=>$price,'addressInfo'=>$addressInfo]);
+
+    }
+    public function paymentdo(Request $request)
+    {
+        $goods_id=$request->goods_id;
+        session(['goods_id'=>$goods_id]);
+//        echo $goods_id;
     }
 }

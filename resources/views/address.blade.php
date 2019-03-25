@@ -9,81 +9,96 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <link href="css/comm.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/address.css">
-    <link rel="stylesheet" href="css/sm.css">
-  
-   
-    
+    <link rel="stylesheet" href="{{url('css/address.css')}}">
+    <link rel="stylesheet" href="{{url('css/sm.css')}}">
 </head>
 <body>
-    
+  @csrf
 <!--触屏版内页头部-->
 <div class="m-block-header" id="div-header">
     <strong id="m-title">地址管理</strong>
     <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
-    <a href="/" class="m-index-icon">添加</a>
+    <a href="addressAdd" class="m-index-icon">添加</a>
 </div>
 <div class="addr-wrapp">
+    @foreach($arr as $v)
     <div class="addr-list">
          <ul>
-            <li class="clearfix">
-                <span class="fl">兰兰</span>
-                <span class="fr">15034008459</span>
+            <li class="clearfix" >
+                <span class="fl">{{$v->address_name}}</span>
+                <span class="fr">手机号：{{$v->address_tel}}</span>
             </li>
             <li>
-                <p>北京市东城区起来我来了</p>
+                <p>嘻嘻嘻嘻嘻嘻嘻嘻</p>
             </li>
             <li class="a-set">
-                <s class="z-set" style="margin-top: 6px;"></s>
-                <span>设为默认</span>
-                <div class="fr">
-                    <span class="edit">编辑</span>
-                    <span class="remove">删除</span>
-                </div>
-            </li>
-        </ul>  
-    </div>
-    <div class="addr-list">
-         <ul>
-            <li class="clearfix">
-                <span class="fl">兰兰</span>
-                <span class="fr">15034008459</span>
-            </li>
-            <li>
-                <p>北京市东城区起来我来了</p>
-            </li>
-            <li class="a-set">
+                @if($v->is_default==2)
                 <s class="z-defalt" style="margin-top: 6px;"></s>
+                @else
+                    <s class="z-set" style="margin-top: 6px;"></s>
+                @endif
                 <span>设为默认</span>
                 <div class="fr">
-                    <span class="edit">编辑</span>
-                    <span class="remove">删除</span>
+                    <span class="edit"><a href="{{url('addressUpd')}}/{{$v->address_id}}">编辑</a></span>
+                    <span class="remove" address_id="{{$v->address_id}}">删除</span>
                 </div>
             </li>
         </ul>  
     </div>
+    @endforeach
+
    
 </div>
 
 
-<script src="js/zepto.js" charset="utf-8"></script>
-<script src="js/sm.js"></script>
-<script src="js/sm-extend.js"></script>
-
-
+<script src="{{url('js/zepto.js')}}" charset="utf-8"></script>
+<script src="{{url('js/sm.js')}}"></script>
+<script src="{{url('js/sm-extend.js')}}"></script>
+  <script src="{{url('layui/layui.js')}}"></script>
 <!-- 单选 -->
 <script>
     
+$(function(){
 
+    layui.use('layer',function(){
+        // $('.edit').click(function () {
+        //     var address_id=$('.remove').attr('address_id');
+        //     $.post(
+        //         "addressUpd",
+        //         {address_id:address_id,_token:$('input[name=_token]').val()},
+        //         function(res){
+        //             console.log(res);
+        //
+        //         }
+        //     )
+        // })
+    var layer=layui.layer;
      // 删除地址
     $(document).on('click','span.remove', function () {
+        var address_id=$(this).attr('address_id');
         var buttons1 = [
             {
               text: '删除',
               bold: true,
               color: 'danger',
               onClick: function() {
-                $.alert("您确定删除吗？");
+
+
+                  $.post(
+                      "addressDel",
+                      {address_id:address_id,_token:$('input[name=_token]').val()},
+                      function(res){
+                          if(res==1){
+                              layer.msg('删除成功',{icon:1});
+                              history.go(0);
+                          }else{
+                              layer.msg('删除失败',{icon:2});
+                              history.go(0);
+                          }
+
+                      }
+                  )
+
               }
             }
           ];
@@ -96,8 +111,10 @@
           var groups = [buttons1, buttons2];
           $.actions(groups);
     });
+})
+})
 </script>
-<script src="js/jquery-1.8.3.min.js"></script>
+<script src="{{url('js/jquery-1.8.3.min.js')}}"></script>
 <script>
     var $$=jQuery.noConflict();
     $$(document).ready(function(){
