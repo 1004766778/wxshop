@@ -42,4 +42,4 @@ route::any('addressDel','AddressController@addressDel');
 route::any('addressUpd/{id}','AddressController@addressUpd');
 route::any('addressUpdDo','AddressController@addressUpdDo');
 
-route::any('mywallet','MywalletController@mywallet');
+route::any('myWallet','MywalletController@myWallet');
