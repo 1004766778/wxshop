@@ -15,7 +15,7 @@
     
 <!--触屏版内页头部-->
 <div class="m-block-header" id="div-header">
-    <strong id="m-title">潮购记录</strong>
+    <strong id="m-title">商品记录</strong>
     <a href="javascript:history.back();" class="m-back-arrow"><i class="m-public-icon"></i></a>
     <a href="/" class="m-index-icon"><i class="buycart"></i></a>
 </div>
