@@ -43,7 +43,7 @@ class AllshopController extends Controller
             }
         }else{
             if(empty($type)){
-                $goodsInfo=$this->getcate1($cate_id);
+                $goodsInfo=Goods::where('cate_id',$cate_id)->get();
             }
 
         }
