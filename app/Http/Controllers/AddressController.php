@@ -27,6 +27,7 @@ class AddressController extends Controller
         $data['user_id']=session('user_id');
         unset($data['_token']);
       $aaa= $data['is_default'];
+      
         if($aaa==1){
             $res1=Address::where('user_id',$data['user_id'])->update(['is_default'=>2]);
             $res=Address::insert($data);
