@@ -52,7 +52,7 @@
                     <ul id="sortListUl" class="list">
                         <li sortid='0' class='current'><span class='items'>全部商品</span></li>
                         @foreach($arr as $v)
-                            <li id="removediv"zz><span class='items' cate_id="{{$v->cate_id}}">{{$v->cate_name}}</span></li>
+                            <li id="removediv" class="cate"><span class='items' cate_id="{{$v->cate_id}}">{{$v->cate_name}}</span></li>
                         @endforeach
                     </ul>
                 </div>
@@ -119,10 +119,19 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="cate_id" value="{{$cate_id}}">
     @endsection
     @section('my-js')
         <script>
             $(function(){
+                var _li=$(".cate");
+                var id=$("#cate_id").val();
+                _li.each(function (index) {
+                    var cate_id=$(this).children('span').attr('cate_id');
+                    if(cate_id==id){
+                        $(this).addClass('current').siblings('li').removeClass('current');
+                    }
+                })
                 //点击购物策划
                 //点击库存
                 $(document).on('click','.di',function(){

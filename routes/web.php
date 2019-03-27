@@ -14,6 +14,7 @@
 route::any('/','IndexController@index');
 
 route::any('allshops/{cate_id?}','AllshopController@allshops');
+route::any('allshop/{cate_id?}','AllshopController@allshop');
 route::any('allshopsDo','AllshopController@allshopsDo');
 route::any('shopcart','ShopcartController@shopcart')->middleware('log');
 route::any('shopcartDo','ShopcartController@shopcartDo')->middleware('log');
@@ -45,5 +46,8 @@ route::any('addressUpdDo','AddressController@addressUpdDo');
 route::any('myWallet','MywalletController@myWallet');
 route::any('recordDetail','MywalletController@recordDetail');
 route::any('buyRecord','MywalletController@buyRecord');
+
+
+route::any('alipayIndex','AlipayContorller@index');
 
 

@@ -54,29 +54,26 @@
             	<i></i>账户总额：<span class="gray9">(￥<em>0.00</em>)</span><em class="orange fr"></em>
             </a>
             <a href="javascript:;" class="wzf checked">
-            	<b class="z-set"></b>第三方支付<em class="orange fr"><span class="colorbbb">需要支付&nbsp;</span><b>￥</b>1.00</em>
+            	<b class="z-set"></b>第三方支付<em class="orange fr"><span class="colorbbb">需要支付&nbsp;</span><b>￥</b>{{$price}}</em>
             </a>
             <div class="net-pay">
                 <a href="javascript:;" class="checked" id="jdPay">
                 	<span class="zfb"></span>
                 	<b class="z-set"></b>
                 </a>
-                <a href="javascript:;" id="jdPay">
-                	<span class="kq"></span>
-                	<b class="z-set"></b>
-                </a>
+
             </div>
             <div class="paylip">我们提倡理性消费</div>
         </div>
         <div class="g-Total-bt">
-            <dd><a id="btnPay" href="javascript:;" class="orangeBtn fr w_account">立即支付</a></dd>
+            <dd><a id="btnPay" href="{{url('alipayIndex')}}`" class="orangeBtn fr w_account">立即支付</a></dd>
         </div> 
 
 
         <div class="paywrapp" style="display: none">
             <span class="lip">请输入支付密码</span>    
             <span class="title">潮人购充值</span>
-            <span class="money">￥<i>1.00</i></span>
+            <span class="money">￥<i>{{$price}}</i></span>
             <form action="" method="post" name="payPassword" id="form_paypsw">
                 <div id="payPassword_container" class="alieditContainer clearfix" data-busy="0">
                     <div class="i-block" data-error="i_error">
@@ -122,7 +119,7 @@
 
 		// 判断选择余额支付还是潮购值支付
 		var chaomoney =parseInt($('.other_pay .chaomoney span.gray9 em').text())/100;
-		var leftmoney =parseInt($('.other_pay .leftmoney span.gray9 em').text());
+		//var leftmoney =parseInt($('.other_pay .leftmoney span.gray9 em').text());
 
 		// 潮购不可支付
 		if(chaomoney<total){

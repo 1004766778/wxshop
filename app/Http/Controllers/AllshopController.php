@@ -7,14 +7,22 @@ use App\Model\Goods;
 use App\Model\Category;
 class AllshopController extends Controller
 {
-
     //全部商品
     public function allshops(Request $request)
     {
 
         $res1=Goods::get();
         $res=Category::get();
-        return view('allshops',['arr'=>$res,'arr1'=>$res1]);
+        return view('allshops',['arr'=>$res,'arr1'=>$res1])->with('cate_id',0);
+    }
+
+
+    //主页过来分类商品
+    public function allshop($cate_id)
+    {
+        $res1=Goods::where('cate_id',$cate_id)->get();
+        $res=Category::get();
+        return view('allshops',['arr'=>$res,'arr1'=>$res1])->with('cate_id',$cate_id);
     }
     //点击商品分类
     public function allshopsDo(Request $request)

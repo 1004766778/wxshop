@@ -40,8 +40,10 @@ class LoginController extends Controller
     public function registerDo(Request $request)
     {
         $data=$request->post();
+//        echo $data['code'];die;
+        $coded=session('mobilecode');
         unset($data['_token']);
-        if($data['code']!=session('mobilecode')){
+        if($data['code']!=$coded){
             echo '验证码错误';die;
         }
         unset($data['code']);
@@ -55,7 +57,7 @@ class LoginController extends Controller
         //dd($res);
         if($res){
             echo 1;
-            session(['user_name'=>$data['user_tel'],'user_id'=>$resw1['user_id']]);
+            session(['user_name'=>$data['user_tel'],'user_id'=>$res1['user_id']]);
         }else{
             echo 2;
         }
@@ -66,9 +68,12 @@ class LoginController extends Controller
     //传手机号
     public function sendcode(Request $request){
         $mobile=$request->u_name;
-        $code=rand(1000,9999);
+
+        $code=1111;
+
         session(['mobilecode'=>$code]);
-        $this->sendMobile($code,$mobile);
+
+        //$this->sendMobile($code,$mobile);
     }
 
 
@@ -77,30 +82,30 @@ class LoginController extends Controller
      * @params  $mobile  要发送的手机号
      *
      * */
-    private function sendMobile($code,$mobile)
-    {
-        $host = env("MOBILE_HOST");
-        $path = env("MOBILE_PATH");
-        $method = "POST";
-        $appcode = env("MOBILE_APPCODE");
-        $headers = array();
-        array_push($headers, "Authorization:APPCODE " . $appcode);
-        $querys = "content=【创信】你的验证码是：".$code."，3分钟内有效！&mobile=".$mobile;
-        $bodys = "";
-        $url = $host . $path . "?" . $querys;
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_FAILONERROR, false);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HEADER, true);
-        if (1 == strpos("$".$host, "https://"))
-        {
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        }
-        var_dump(curl_exec($curl));
-    }
+//    private function sendMobile($code,$mobile)
+//    {
+//        $host = env("MOBILE_HOST");
+//        $path = env("MOBILE_PATH");
+//        $method = "POST";
+//        $appcode = env("MOBILE_APPCODE");
+//        $headers = array();
+//        array_push($headers, "Authorization:APPCODE " . $appcode);
+//        $querys = "content=【创信】你的验证码是：".$code."，3分钟内有效！&mobile=".$mobile;
+//        $bodys = "";
+//        $url = $host . $path . "?" . $querys;
+//
+//        $curl = curl_init();
+//        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+//        curl_setopt($curl, CURLOPT_URL, $url);
+//        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+//        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+//        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($curl, CURLOPT_HEADER, true);
+//        if (1 == strpos("$".$host, "https://"))
+//        {
+//            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+//            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+//        }
+//        var_dump(curl_exec($curl));
+//    }
 }

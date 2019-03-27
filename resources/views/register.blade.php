@@ -75,6 +75,7 @@
                             "{{url('sendcode')}}",
                             {u_name:u_name,_token:$('input[name=_token]').val()},
                             function(res){
+
                                 console.log(res)
                             }
                         )

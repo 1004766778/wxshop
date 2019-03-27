@@ -64,7 +64,7 @@
 			<ul class="menu-list">
 				@foreach($arr1 as $v)
 				<li>
-					<a href="{{url('allshops')}}" id="btnNew">
+					<a href="{{url('allshops')}}?cate_id={{$v->cate_id}}" >
 						<i class="xinpin"></i>
 						<span class="title">{{$v->cate_name}}</span>
 					</a>
@@ -131,7 +131,7 @@
 		<div class="goods-wrap marginB">
 			<ul id="ulGoodsList" class="goods-list clearfix">
 				@foreach($arr as $v)
-				<li id="23558" codeid="12751965" goodsid="23558" codeperiod="28436">
+				<li  codeid="12751965" goodsid="23558" codeperiod="28436">
 					<a href="{{'shopcontent'}}/{{$v->goods_id}}" class="g-pic">
 						<img class="lazy" name="goodsImg" src="/goodsimg/{{$v->goods_img}}" width="136" height="136">
 					</a>
@@ -218,7 +218,7 @@
 	randomize: false,   //是否随机幻切换
 	animationLoop: true   //是否循环滚动
 	});
-	setTimeout($('.flexslider img').fadeIn());
+	//setTimeout($('.flexslider img').fadeIn());
 	});
 
 
